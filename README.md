@@ -93,62 +93,6 @@ If you've cloned and built the project locally:
 }
 ```
 
-## Usage Examples
-
-#### Create an Issue
-```
-create_issue({
-  repository: "owner/repo",
-  title: "Feature request",
-  body: "Detailed description...",
-  labels: ["enhancement"],
-  assignees: ["username"]
-})
-```
-
-#### Submit a PR Review
-```
-submit_review({
-  repository: "owner/repo",
-  pr_number: 123,
-  body: "LGTM!",
-  event: "APPROVE"
-})
-```
-
-#### Create a Commit
-```
-create_commit({
-  repository: "owner/repo",
-  branch: "main",
-  message: "Update configuration",
-  files: [
-    {
-      path: "config.json",
-      content: '{"version": "2.0"}'
-    }
-  ]
-})
-```
-
-## Development
-
-### Directory Structure
-```
-github-as-app/
-├── src/
-│   ├── index.ts          # MCP server entry point
-│   ├── github-client.ts  # GitHub App authentication
-│   └── tools/           # Tool implementations
-│       ├── issues.ts
-│       ├── pull-requests.ts
-│       └── repository.ts
-├── package.json
-├── tsconfig.json
-├── .env.example
-└── README.md
-```
-
 ## License
 
 MIT
