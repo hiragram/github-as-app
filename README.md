@@ -93,7 +93,29 @@ npm start
 
 ### Claude Desktop Configuration
 
+#### Option 1: Using npx (Recommended)
+
 Add this to your `claude_desktop_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "github-app": {
+      "command": "npx",
+      "args": ["github-as-app"],
+      "env": {
+        "GITHUB_APP_ID": "your-app-id",
+        "GITHUB_APP_PRIVATE_KEY": "your-base64-encoded-private-key",
+        "GITHUB_APP_INSTALLATION_ID": "your-installation-id"
+      }
+    }
+  }
+}
+```
+
+#### Option 2: Local Installation
+
+If you've cloned and built the project locally:
 
 ```json
 {
