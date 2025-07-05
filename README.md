@@ -33,23 +33,76 @@ An MCP (Model Context Protocol) server that authenticates as a GitHub App to man
 
 ### 1. Create a GitHub App
 
-1. Create a new App on GitHub
-2. Configure required permissions:
-   - Repository permissions:
-     - Contents: Read & Write
-     - Issues: Read & Write
-     - Pull requests: Read & Write
-     - Checks: Read
-     - Commit statuses: Read
-   - Organization permissions:
-     - Members: Read (if using team reviewers)
+#### Step 1: Navigate to GitHub App Settings
+1. Go to your GitHub account settings (click your profile picture → Settings)
+2. In the left sidebar, scroll down to "Developer settings" and click it
+3. Click "GitHub Apps" in the left sidebar
+4. Click the "New GitHub App" button
 
-3. Generate and download a private key
-4. Note your App ID and Installation ID
-5. Base64 encode your private key:
-   ```bash
-   base64 -i path/to/private-key.pem | tr -d '\n'
-   ```
+#### Step 2: Configure Your GitHub App
+Fill in the following information:
+
+**Basic Information:**
+- **GitHub App name**: Choose a unique name (e.g., "my-github-mcp-app")
+- **Homepage URL**: Can be your GitHub profile URL or any valid URL
+- **Webhook**: Uncheck "Active" (not needed for this MCP server)
+
+**Permissions:**
+Scroll to "Repository permissions" and set:
+- **Contents**: Read & Write
+- **Issues**: Read & Write  
+- **Pull requests**: Read & Write
+- **Checks**: Read
+- **Commit statuses**: Read
+
+Scroll to "Organization permissions" and set:
+- **Members**: Read (only if you plan to use team reviewers)
+
+**Where can this GitHub App be installed?**
+- Choose "Only on this account" for personal use
+- Choose "Any account" if you want others to use your app
+
+Click "Create GitHub App"
+
+#### Step 3: Generate Private Key
+1. After creating the app, you'll be redirected to the app settings page
+2. Scroll down to "Private keys" section
+3. Click "Generate a private key"
+4. A `.pem` file will be downloaded to your computer - save this securely!
+
+#### Step 4: Get Your App ID
+- On the same settings page, find your "App ID" at the top (it's a number like `123456`)
+- Copy this number - you'll need it for configuration
+
+#### Step 5: Install the App and Get Installation ID
+1. On your app settings page, click "Install App" in the left sidebar
+2. Click "Install" next to your account name
+3. Select which repositories the app can access:
+   - "All repositories" for full access
+   - "Only select repositories" to choose specific repos
+4. Click "Install"
+5. After installation, look at the URL in your browser. It will look like:
+   `https://github.com/settings/installations/12345678`
+6. The number at the end (`12345678`) is your Installation ID - copy this!
+
+#### Step 6: Prepare Your Private Key
+The private key needs to be Base64 encoded for the configuration:
+
+```bash
+# On macOS/Linux:
+base64 -i path/to/your-app.private-key.pem | tr -d '\n'
+
+# On Windows (PowerShell):
+[Convert]::ToBase64String([System.IO.File]::ReadAllBytes("path\to\your-app.private-key.pem"))
+```
+
+Copy the entire output - this is your encoded private key.
+
+#### Summary of Required Values
+You should now have:
+- **App ID**: A number like `123456`
+- **Installation ID**: A number like `12345678`  
+- **Private Key (Base64)**: A long string starting with something like `LS0tLS1CRUdJTi...`
 
 ### 2. Configure Claude Desktop
 
