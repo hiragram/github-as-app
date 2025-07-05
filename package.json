@@ -4,14 +4,35 @@
   "description": "MCP server for GitHub App operations",
   "main": "dist/index.js",
   "type": "module",
+  "bin": {
+    "github-as-app": "dist/index.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "build": "tsc",
     "dev": "tsx watch src/index.ts",
-    "start": "node dist/index.js"
+    "start": "node dist/index.js",
+    "prepublishOnly": "npm run build"
   },
-  "keywords": ["mcp", "github", "github-app"],
+  "keywords": ["mcp", "github", "github-app", "model-context-protocol"],
   "author": "",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hiragram/github-as-app.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hiragram/github-as-app/issues"
+  },
+  "homepage": "https://github.com/hiragram/github-as-app#readme",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.0",
     "@octokit/app": "^15.0.0",
