@@ -43,13 +43,19 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
   try {
     const client = await getGitHubClient();
 
-    if (name.startsWith('issue_')) {
+    // Issue-related tools
+    if (name.includes('issue')) {
       return await handleIssueTool(client, name, args);
-    } else if (name.startsWith('pr_') || name === 'list_prs' || name === 'merge_pr') {
+    } 
+    // PR-related tools
+    else if (name.includes('pr') || name.includes('review')) {
       return await handlePullRequestTool(client, name, args);
-    } else if (name.startsWith('create_commit')) {
+    } 
+    // Repository-related tools
+    else if (name === 'create_commit') {
       return await handleRepositoryTool(client, name, args);
-    } else {
+    } 
+    else {
       throw new McpError(
         ErrorCode.MethodNotFound,
         `Unknown tool: ${name}`
