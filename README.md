@@ -45,53 +45,13 @@ An MCP (Model Context Protocol) server that authenticates as a GitHub App to man
      - Members: Read (if using team reviewers)
 
 3. Generate and download a private key
+4. Note your App ID and Installation ID
+5. Base64 encode your private key:
+   ```bash
+   base64 -i path/to/private-key.pem | tr -d '\n'
+   ```
 
-### 2. Configure Environment Variables
-
-Copy `.env.example` to `.env` and set your values:
-
-```bash
-cp .env.example .env
-```
-
-```env
-# GitHub App credentials
-GITHUB_APP_ID=your-app-id
-GITHUB_APP_PRIVATE_KEY=your-base64-encoded-private-key
-GITHUB_APP_INSTALLATION_ID=your-installation-id
-
-# Optional: Custom author information for commits
-GITHUB_APP_NAME=Your GitHub App Name
-GITHUB_APP_EMAIL=your-app[bot]@users.noreply.github.com
-```
-
-#### Encoding the Private Key
-
-To Base64 encode your private key:
-
-```bash
-base64 -i path/to/private-key.pem | tr -d '\n'
-```
-
-### 3. Install and Run
-
-```bash
-# Install dependencies
-npm install
-
-# Build TypeScript
-npm run build
-
-# Development mode (with hot reload)
-npm run dev
-
-# Production mode
-npm start
-```
-
-## Usage
-
-### Claude Desktop Configuration
+### 2. Configure Claude Desktop
 
 #### Option 1: Using npx (Recommended)
 
@@ -133,7 +93,7 @@ If you've cloned and built the project locally:
 }
 ```
 
-### Usage Examples
+## Usage Examples
 
 #### Create an Issue
 ```
