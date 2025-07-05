@@ -12,8 +12,19 @@ import { getGitHubClient } from './github-client.js';
 import { issueTools, handleIssueTool } from './tools/issues.js';
 import { pullRequestTools, handlePullRequestTool } from './tools/pull-requests.js';
 import { repositoryTools, handleRepositoryTool } from './tools/repository.js';
+import fs from 'fs';
+import path from 'path';
 
 dotenv.config();
+
+// Logging setup
+const logFile = '/tmp/github-as-app.log';
+const log = (message: string, data?: any) => {
+  const timestamp = new Date().toISOString();
+  const logMessage = `[${timestamp}] ${message}${data ? ' ' + JSON.stringify(data) : ''}\n`;
+  fs.appendFileSync(logFile, logMessage);
+  console.error(logMessage.trim());
+};
 
 const server = new Server(
   {
@@ -39,6 +50,8 @@ server.setRequestHandler(ListToolsRequestSchema, async () => ({
 
 server.setRequestHandler(CallToolRequestSchema, async (request) => {
   const { name, arguments: args } = request.params;
+  
+  log(`Tool called: ${name}`, { args });
 
   try {
     const client = await getGitHubClient();
@@ -75,22 +88,30 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 });
 
 async function main() {
+  log('Starting GitHub App MCP server');
+  
   const requiredEnvVars = [
     'GITHUB_APP_ID',
     'GITHUB_APP_PRIVATE_KEY',
     'GITHUB_APP_INSTALLATION_ID',
   ];
 
+  const envStatus: any = {};
   for (const envVar of requiredEnvVars) {
+    envStatus[envVar] = process.env[envVar] ? 'SET' : 'NOT SET';
     if (!process.env[envVar]) {
+      log(`Error: Missing required environment variable: ${envVar}`);
       console.error(`Error: Missing required environment variable: ${envVar}`);
       process.exit(1);
     }
   }
+  
+  log('Environment variables status', envStatus);
 
   const transport = new StdioServerTransport();
   await server.connect(transport);
 
+  log('GitHub App MCP server started successfully');
   console.error('GitHub App MCP server started');
 }
 
