@@ -104,47 +104,18 @@ You should now have:
 - **Installation ID**: A number like `12345678`  
 - **Private Key (Base64)**: A long string starting with something like `LS0tLS1CRUdJTi...`
 
-### 2. Configure Claude Desktop
+### 2. Install the MCP Server
 
-#### Option 1: Using npx (Recommended)
+Run this command in Claude Code:
 
-Add this to your `claude_desktop_config.json`:
-
-```json
-{
-  "mcpServers": {
-    "github-app": {
-      "command": "npx",
-      "args": ["github-as-app"],
-      "env": {
-        "GITHUB_APP_ID": "your-app-id",
-        "GITHUB_APP_PRIVATE_KEY": "your-base64-encoded-private-key",
-        "GITHUB_APP_INSTALLATION_ID": "your-installation-id"
-      }
-    }
-  }
-}
+```bash
+claude mcp add github-as-app npx github-as-app \
+  -e GITHUB_APP_ID=your-app-id \
+  -e GITHUB_APP_PRIVATE_KEY=your-base64-encoded-private-key \
+  -e GITHUB_APP_INSTALLATION_ID=your-installation-id
 ```
 
-#### Option 2: Local Installation
-
-If you've cloned and built the project locally:
-
-```json
-{
-  "mcpServers": {
-    "github-app": {
-      "command": "node",
-      "args": ["/path/to/github-as-app/dist/index.js"],
-      "env": {
-        "GITHUB_APP_ID": "your-app-id",
-        "GITHUB_APP_PRIVATE_KEY": "your-base64-encoded-private-key",
-        "GITHUB_APP_INSTALLATION_ID": "your-installation-id"
-      }
-    }
-  }
-}
-```
+Replace the values with your actual App ID, Base64-encoded private key, and Installation ID from the previous steps.
 
 ## License
 
