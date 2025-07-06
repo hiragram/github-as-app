@@ -12,6 +12,7 @@ import { getGitHubClient } from './github-client.js';
 import { issueTools, handleIssueTool } from './tools/issues.js';
 import { pullRequestTools, handlePullRequestTool } from './tools/pull-requests.js';
 import { repositoryTools, handleRepositoryTool } from './tools/repository.js';
+import { handleGetIdentity } from './tools/identity.js';
 import fs from 'fs';
 import path from 'path';
 
@@ -38,10 +39,20 @@ const server = new Server(
   }
 );
 
+const identityTool = {
+  name: 'get_identity',
+  description: 'Get authenticated GitHub App identity information',
+  inputSchema: {
+    type: 'object',
+    properties: {},
+  },
+};
+
 const allTools = [
   ...issueTools,
   ...pullRequestTools,
   ...repositoryTools,
+  identityTool,
 ];
 
 server.setRequestHandler(ListToolsRequestSchema, async () => ({
@@ -67,7 +78,19 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
     // Repository-related tools
     else if (name === 'git_commit') {
       return await handleRepositoryTool(client, name, args);
-    } 
+    }
+    // Identity tool
+    else if (name === 'get_identity') {
+      const identity = await handleGetIdentity();
+      return {
+        content: [
+          {
+            type: 'text',
+            text: JSON.stringify(identity, null, 2),
+          },
+        ],
+      };
+    }
     else {
       throw new McpError(
         ErrorCode.MethodNotFound,
