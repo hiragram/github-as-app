@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.3.0](https://github.com/hiragram/github-as-app/compare/v0.2.2...v0.3.0) (2025-07-06)
+
+
+### ⚠ BREAKING CHANGES
+
+* create_commit tool renamed to git_commit with different API
+
+### Miscellaneous Chores
+
+* release 0.3.0 ([5e1dcda](https://github.com/hiragram/github-as-app/commit/5e1dcdaaca0435813fefb8215d082d75a3169cbb))
+
+
+### Code Refactoring
+
+* Simplify git_commit tool to wrap git command ([ab6f19b](https://github.com/hiragram/github-as-app/commit/ab6f19bfc98acfd5f57db34c9f704f6f2053b12f))
+
 ## [0.2.2](https://github.com/hiragram/github-as-app/compare/v0.2.1...v0.2.2) (2025-07-05)
 
 
