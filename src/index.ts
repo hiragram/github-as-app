@@ -65,7 +65,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
       return await handlePullRequestTool(client, name, args);
     } 
     // Repository-related tools
-    else if (name === 'create_commit') {
+    else if (name === 'git_commit') {
       return await handleRepositoryTool(client, name, args);
     } 
     else {

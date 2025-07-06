@@ -27,7 +27,7 @@ An MCP (Model Context Protocol) server that authenticates as a GitHub App to man
 - `get_pr_status` - Get combined status for a pull request
 
 ### Repository Operations
-- `create_commit` - Create a commit as GitHub App
+- `git_commit` - Create a git commit with GitHub App as author (requires staged changes)
 
 ## Setup
 
@@ -125,6 +125,8 @@ Add the following to your project's CLAUDE.md file:
 # GitHub Operations
 
 When github-as-app MCP is set up, use the github-as-app MCP tools instead of the gh command for GitHub operations.
+
+Use the git_commit tool instead of git commit for making commits.
 ```
 
 This ensures that Claude Code will use the MCP tools for GitHub operations rather than falling back to CLI commands.

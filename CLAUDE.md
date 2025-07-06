@@ -30,7 +30,7 @@ npm run prepublishOnly
 - `src/tools/` - MCPツールの実装を含むディレクトリ
   - `issues.ts` - Issue関連の6つのツール（list, get, create, update, comment, assign）
   - `pull-requests.ts` - PR関連の10つのツール（list, get, create, update, comment, merge, assign, request_reviewers, create_review_comment, submit_review, get_pr_checks, get_pr_status）
-  - `repository.ts` - リポジトリ操作ツール（create_commit）
+  - `repository.ts` - リポジトリ操作ツール（git_commit）
 
 ### 認証フロー
 1. 環境変数から認証情報を取得（GITHUB_APP_ID、GITHUB_APP_PRIVATE_KEY、GITHUB_APP_INSTALLATION_ID）
