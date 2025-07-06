@@ -117,6 +117,18 @@ claude mcp add github-as-app npx github-as-app \
 
 Replace the values with your actual App ID, Base64-encoded private key, and Installation ID from the previous steps.
 
+### 3. Update CLAUDE.md (Recommended)
+
+Add the following to your project's CLAUDE.md file:
+
+```markdown
+# GitHub Operations
+
+When github-as-app MCP is set up, use the github-as-app MCP tools instead of the gh command for GitHub operations.
+```
+
+This ensures that Claude Code will use the MCP tools for GitHub operations rather than falling back to CLI commands.
+
 ## License
 
 MIT
