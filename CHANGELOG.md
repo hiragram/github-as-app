@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0](https://github.com/hiragram/github-as-app/compare/v0.3.0...v0.4.0) (2025-07-06)
+
+
+### Features
+
+* **identity:** Add get_identity tool to retrieve GitHub App information ([6b03172](https://github.com/hiragram/github-as-app/commit/6b03172f22c9fc226d508e9ecb3bad3c3f7ddd6a))
+
 ## [0.3.0](https://github.com/hiragram/github-as-app/compare/v0.2.2...v0.3.0) (2025-07-06)
 
 
