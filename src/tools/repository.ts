@@ -1,6 +1,6 @@
 import { Octokit } from '@octokit/rest';
 import { CallToolResult } from '@modelcontextprotocol/sdk/types.js';
-import { execSync } from 'child_process';
+import { execSync, spawnSync } from 'child_process';
 import fs from 'fs';
 
 export const repositoryTools = [
@@ -50,10 +50,26 @@ export async function handleRepositoryTool(
       
       try {
         // Create the commit with GitHub App as author (committer remains as the current user)
-        const commitOutput = execSync(`git commit --author="${appName} <${appEmail}>" -m "${args.message.replace(/"/g, '\\"')}"`, {
+        // Use spawnSync to properly handle complex commit messages
+        const result = spawnSync('git', [
+          'commit',
+          `--author=${appName} <${appEmail}>`,
+          '-m',
+          args.message
+        ], {
           cwd: workingDir,
           encoding: 'utf8'
         });
+        
+        if (result.error) {
+          throw result.error;
+        }
+        
+        if (result.status !== 0) {
+          throw new Error(`git commit failed: ${result.stderr || result.stdout}`);
+        }
+        
+        const commitOutput = result.stdout;
         
         // Get the commit SHA
         const commitSha = execSync('git rev-parse HEAD', { 
