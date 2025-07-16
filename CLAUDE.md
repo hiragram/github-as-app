@@ -33,7 +33,11 @@ npm run prepublishOnly
   - `repository.ts` - リポジトリ操作ツール（git_commit）
 
 ### 認証フロー
-1. 環境変数から認証情報を取得（GITHUB_APP_ID、GITHUB_APP_PRIVATE_KEY、GITHUB_APP_INSTALLATION_ID）
+1. 環境変数から認証情報を取得
+   - BOT_GITHUB_APP_ID または GITHUB_APP_ID（BOT_GITHUB_が優先）
+   - BOT_GITHUB_APP_PRIVATE_KEY または GITHUB_APP_PRIVATE_KEY（BOT_GITHUB_が優先）
+   - BOT_GITHUB_APP_INSTALLATION_ID または GITHUB_APP_INSTALLATION_ID（BOT_GITHUB_が優先）
+   - 注: GitHub Actionsでは`GITHUB_`で始まるsecretを登録できないため、`BOT_GITHUB_`プレフィックスを推奨
 2. Base64エンコードされた秘密鍵を自動的にデコード
 3. Octokitインスタンスをキャッシュして再利用
 

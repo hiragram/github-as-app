@@ -20,9 +20,11 @@ export async function getGitHubClient(): Promise<Octokit> {
 
   log('Creating new GitHub client');
 
-  const appId = process.env.GITHUB_APP_ID;
-  const privateKey = process.env.GITHUB_APP_PRIVATE_KEY;
-  const installationId = process.env.GITHUB_APP_INSTALLATION_ID;
+  // Support both BOT_GITHUB_ and GITHUB_ prefixes for backward compatibility
+  // BOT_GITHUB_ takes precedence
+  const appId = process.env.BOT_GITHUB_APP_ID || process.env.GITHUB_APP_ID;
+  const privateKey = process.env.BOT_GITHUB_APP_PRIVATE_KEY || process.env.GITHUB_APP_PRIVATE_KEY;
+  const installationId = process.env.BOT_GITHUB_APP_INSTALLATION_ID || process.env.GITHUB_APP_INSTALLATION_ID;
 
   const credentialStatus = {
     hasAppId: !!appId,
@@ -107,6 +109,7 @@ export async function getGitHubClient(): Promise<Octokit> {
       get: (params: any) => octokitInstance.request('GET /repos/{owner}/{repo}/issues/{issue_number}', params),
       update: (params: any) => octokitInstance.request('PATCH /repos/{owner}/{repo}/issues/{issue_number}', params),
       createComment: (params: any) => octokitInstance.request('POST /repos/{owner}/{repo}/issues/{issue_number}/comments', params),
+      updateComment: (params: any) => octokitInstance.request('PATCH /repos/{owner}/{repo}/issues/comments/{comment_id}', params),
       addAssignees: (params: any) => octokitInstance.request('POST /repos/{owner}/{repo}/issues/{issue_number}/assignees', params),
     };
     

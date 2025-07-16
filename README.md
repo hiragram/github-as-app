@@ -112,12 +112,14 @@ Run this command in Claude Code:
 
 ```bash
 claude mcp add github-as-app npx github-as-app \
-  -e GITHUB_APP_ID=your-app-id \
-  -e GITHUB_APP_PRIVATE_KEY=your-base64-encoded-private-key \
-  -e GITHUB_APP_INSTALLATION_ID=your-installation-id
+  -e BOT_GITHUB_APP_ID=your-app-id \
+  -e BOT_GITHUB_APP_PRIVATE_KEY=your-base64-encoded-private-key \
+  -e BOT_GITHUB_APP_INSTALLATION_ID=your-installation-id
 ```
 
 Replace the values with your actual App ID, Base64-encoded private key, and Installation ID from the previous steps.
+
+**Note**: The server supports both `BOT_GITHUB_` and `GITHUB_` prefixes for environment variables. `BOT_GITHUB_` is recommended for GitHub Actions compatibility (as GitHub Actions doesn't allow secrets starting with `GITHUB_`). If both are set, `BOT_GITHUB_` takes precedence.
 
 ### 3. Update CLAUDE.md (Recommended)
 
