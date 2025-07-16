@@ -162,6 +162,28 @@ export const issueTools = [
       required: ['repository', 'issue_number', 'assignees'],
     },
   },
+  {
+    name: 'update_issue_comment',
+    description: 'Update an existing comment on an issue',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        repository: {
+          type: 'string',
+          description: 'Repository in format owner/repo',
+        },
+        comment_id: {
+          type: 'number',
+          description: 'Comment ID',
+        },
+        body: {
+          type: 'string',
+          description: 'New comment body',
+        },
+      },
+      required: ['repository', 'comment_id', 'body'],
+    },
+  },
 ];
 
 export async function handleIssueTool(
@@ -307,6 +329,24 @@ export async function handleIssueTool(
           {
             type: 'text',
             text: `Assigned ${args.assignees.join(', ')} to issue #${args.issue_number}`,
+          },
+        ],
+      };
+    }
+
+    case 'update_issue_comment': {
+      const response = await client.issues.updateComment({
+        owner,
+        repo,
+        comment_id: args.comment_id,
+        body: args.body,
+      });
+
+      return {
+        content: [
+          {
+            type: 'text',
+            text: `Updated comment ${args.comment_id}\nURL: ${response.data.html_url}`,
           },
         ],
       };

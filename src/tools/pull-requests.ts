@@ -311,6 +311,28 @@ export const pullRequestTools = [
       required: ['repository', 'pr_number'],
     },
   },
+  {
+    name: 'update_pr_comment',
+    description: 'Update an existing comment on a pull request',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        repository: {
+          type: 'string',
+          description: 'Repository in format owner/repo',
+        },
+        comment_id: {
+          type: 'number',
+          description: 'Comment ID',
+        },
+        body: {
+          type: 'string',
+          description: 'New comment body',
+        },
+      },
+      required: ['repository', 'comment_id', 'body'],
+    },
+  },
 ];
 
 export async function handlePullRequestTool(
@@ -617,6 +639,24 @@ export async function handlePullRequestTool(
               null,
               2
             ),
+          },
+        ],
+      };
+    }
+
+    case 'update_pr_comment': {
+      const response = await client.issues.updateComment({
+        owner,
+        repo,
+        comment_id: args.comment_id,
+        body: args.body,
+      });
+
+      return {
+        content: [
+          {
+            type: 'text',
+            text: `Updated comment ${args.comment_id}\nURL: ${response.data.html_url}`,
           },
         ],
       };
