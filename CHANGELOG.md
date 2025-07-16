@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.5.0](https://github.com/hiragram/github-as-app/compare/v0.4.0...v0.5.0) (2025-07-16)
+
+
+### Features
+
+* **comments:** Add tools to update existing issue and PR comments ([0ab3c87](https://github.com/hiragram/github-as-app/commit/0ab3c87c53e998b8279335c8af72f2eb69bf6774))
+* **env:** Support BOT_GITHUB_ prefix for GitHub Actions compatibility ([c24a869](https://github.com/hiragram/github-as-app/commit/c24a8696aebdd23f3d39aa582edd56e7ff279c19))
+
+
+### Bug Fixes
+
+* **repository:** Fix git commit command execution for complex messages ([a2705cd](https://github.com/hiragram/github-as-app/commit/a2705cd2e04cd21d4401c4a2a5a28a5d3c5f0ee2))
+
 ## [0.4.0](https://github.com/hiragram/github-as-app/compare/v0.3.0...v0.4.0) (2025-07-06)
 
 
