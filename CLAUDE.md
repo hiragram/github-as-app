@@ -28,8 +28,8 @@ npm run prepublishOnly
 - `src/index.ts` - MCPサーバーのメインエントリーポイント。StdioServerTransportを使用してツールハンドラーを登録
 - `src/github-client.ts` - GitHub App認証とOctokitクライアントのシングルトン管理
 - `src/tools/` - MCPツールの実装を含むディレクトリ
-  - `issues.ts` - Issue関連の6つのツール（list, get, create, update, comment, assign）
-  - `pull-requests.ts` - PR関連の10つのツール（list, get, create, update, comment, merge, assign, request_reviewers, create_review_comment, submit_review, get_pr_checks, get_pr_status）
+  - `issues.ts` - Issue関連の7つのツール（list, get, create, update, comment, assign, update_comment）
+  - `pull-requests.ts` - PR関連の11つのツール（list, get, create, update, comment, update_comment, merge, assign, request_reviewers, create_review_comment, submit_review, get_pr_checks, get_pr_status）
   - `repository.ts` - リポジトリ操作ツール（git_commit）
 
 ### 認証フロー
@@ -50,6 +50,10 @@ npm run prepublishOnly
 - Octokit v15との互換性のため、`request`メソッドのラッパーが実装されている（src/github-client.ts:85-104）
 - ツール名のルーティングロジックは`src/index.ts:73-85`で実装
 - エラーハンドリングは各ツールハンドラー内で行われ、MCPエラーとして返される
+- **ツールに関して変更があったらREADME.mdの「Features」セクションを確認し、更新が必要ないか確認すること**
+  - 新しいツールを追加した場合は、該当するセクション（Issue Operations、Pull Request Operations、Repository Operations）に追加する
+  - ツールの説明は簡潔で分かりやすく記載する
+  - ツール名は実際のツール名と一致させる
 
 ## コミット規約
 このプロジェクトでは **Conventional Commits** 規約に従ってコミットメッセージを作成する。

@@ -11,6 +11,7 @@ An MCP (Model Context Protocol) server that authenticates as a GitHub App to man
 - `update_issue` - Update an existing issue
 - `comment_issue` - Add a comment to an issue
 - `assign_issue` - Assign users to an issue
+- `update_issue_comment` - Update an existing comment on an issue
 
 ### Pull Request Operations
 - `list_prs` - List pull requests in a repository
@@ -18,6 +19,7 @@ An MCP (Model Context Protocol) server that authenticates as a GitHub App to man
 - `create_pr` - Create a new pull request
 - `update_pr` - Update an existing pull request
 - `comment_pr` - Add a comment to a pull request
+- `update_pr_comment` - Update an existing comment on a pull request
 - `merge_pr` - Merge a pull request
 - `assign_pr` - Assign users to a pull request
 - `request_reviewers` - Request reviewers for a pull request
