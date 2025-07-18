@@ -113,18 +113,21 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 async function main() {
   log('Starting GitHub App MCP server');
   
+  // Check for required environment variables
+  // Support both BOT_GITHUB_ and GITHUB_ prefixes (BOT_GITHUB_ takes precedence)
   const requiredEnvVars = [
-    'GITHUB_APP_ID',
-    'GITHUB_APP_PRIVATE_KEY',
-    'GITHUB_APP_INSTALLATION_ID',
+    { key: 'APP_ID', botKey: 'BOT_GITHUB_APP_ID', fallbackKey: 'GITHUB_APP_ID' },
+    { key: 'APP_PRIVATE_KEY', botKey: 'BOT_GITHUB_APP_PRIVATE_KEY', fallbackKey: 'GITHUB_APP_PRIVATE_KEY' },
+    { key: 'APP_INSTALLATION_ID', botKey: 'BOT_GITHUB_APP_INSTALLATION_ID', fallbackKey: 'GITHUB_APP_INSTALLATION_ID' },
   ];
 
   const envStatus: any = {};
-  for (const envVar of requiredEnvVars) {
-    envStatus[envVar] = process.env[envVar] ? 'SET' : 'NOT SET';
-    if (!process.env[envVar]) {
-      log(`Error: Missing required environment variable: ${envVar}`);
-      console.error(`Error: Missing required environment variable: ${envVar}`);
+  for (const { key, botKey, fallbackKey } of requiredEnvVars) {
+    const value = process.env[botKey] || process.env[fallbackKey];
+    envStatus[key] = value ? 'SET' : 'NOT SET';
+    if (!value) {
+      log(`Error: Missing required environment variable: ${botKey} or ${fallbackKey}`);
+      console.error(`Error: Missing required environment variable: ${botKey} or ${fallbackKey}`);
       process.exit(1);
     }
   }
