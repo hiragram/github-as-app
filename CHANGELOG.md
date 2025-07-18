@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.1](https://github.com/hiragram/github-as-app/compare/v0.5.0...v0.5.1) (2025-07-18)
+
+
+### Bug Fixes
+
+* **env:** Fix environment variable check to support BOT_GITHUB_ prefix ([91664d1](https://github.com/hiragram/github-as-app/commit/91664d171d08e583517f74411c1d1a7bf3f0b95a))
+
 ## [0.5.0](https://github.com/hiragram/github-as-app/compare/v0.4.0...v0.5.0) (2025-07-16)
 
 
